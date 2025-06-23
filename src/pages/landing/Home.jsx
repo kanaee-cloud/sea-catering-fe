@@ -1,13 +1,17 @@
-import React from 'react'
+import React from "react";
+import Banner from "../../components/ui/Banner";
+import About from "../../components/ui/About";
+import Services from "../../components/ui/Services";
 
 const Home = () => {
   return (
-    <section className="py-20 text-center">
-      <h2 className="text-4xl font-bold mb-4">SEA Catering</h2>
-      <p className="text-gray-600 max-w-xl mx-auto">
-        Healthy Meals, Anytime, Anywhere.
-      </p>
-    </section>
+    <>
+    <main>
+      <Banner />
+      <About />
+      <Services />
+    </main>
+    </>
   );
 };
 
