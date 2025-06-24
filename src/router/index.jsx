@@ -7,8 +7,7 @@ import Home from "../pages/landing/Home";
 import MealPlans from "../pages/landing/MealPlans";
 
 // Auth Pages
-import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
+import AuthForm from "../pages/auth/AuthForm";
 
 const router = createBrowserRouter([
   {
@@ -35,12 +34,8 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Login />,
-      },
-      {
-        index: "register",
-        element: <Register />,
-      },
+        element: <AuthForm />,
+      }
     ],
   },
 ]);

@@ -6,7 +6,7 @@ const MealPlanList = () => {
   const { mealPlans } = useMealPlans();
 
   return (
-    <section className="">
+    <section className="h-screen">
       <h1 className="text-2xl font-bold mb-4">Meal Plans</h1>
       <p className="mb-8 text-justify text-md opacity-70">
         Our Meal Plans are thoughtfully curated to offer balanced, nutritious,
