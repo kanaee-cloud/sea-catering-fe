@@ -1,4 +1,4 @@
-import FeatureCarousel from "../common/FeatureCarousel";
+import FeatureCarousel from "../../common/FeatureCarousel";
 
 const Services = () => {
   return (

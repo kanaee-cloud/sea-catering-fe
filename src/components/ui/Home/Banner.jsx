@@ -1,5 +1,5 @@
-import AnimationButton from "../common/AnimationButton";
-import OrbitSpecialists from "../common/OrbitSpecialist";
+import AnimationButton from "../../common/AnimationButton";
+import OrbitSpecialists from "../../common/OrbitSpecialist";
 
 const Banner = () => {
   return (

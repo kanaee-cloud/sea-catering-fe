@@ -1,7 +1,8 @@
 import React from "react";
-import Banner from "../../components/ui/Banner";
-import About from "../../components/ui/About";
-import Services from "../../components/ui/Services";
+import Banner from "../../components/ui/Home/Banner";
+import About from "../../components/ui/Home/About";
+import Services from "../../components/ui/Home/Services";
+import Review from "../../components/ui/Home/Review";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Banner />
       <About />
       <Services />
+      <Review />
     </main>
     </>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { ChefHat, Salad, UtensilsCrossed, Apple, Leaf } from "lucide-react";
 
@@ -53,17 +54,13 @@ const specialists = [
 const OrbitSpecialists = () => {
   return (
     <div className="relative w-full h-[500px] flex items-center justify-center bg-gradient-to-br rounded-xl overflow-hidden">
-      {/* Orbit Lingkaran */}
       <div className="absolute w-[400px] h-[400px] border border-white/10 rounded-full" />
       <div className="absolute w-[300px] h-[300px] border border-white/10 rounded-full" />
       <div className="absolute w-[200px] h-[200px] border border-white/10 rounded-full" />
-
-      {/* Teks Tengah */}
       <div className="text-center text-white z-10">
         <h2 className="text-4xl font-semibold">5k+</h2>
         <p className="text-sm opacity-70">Customers Approved</p>
       </div>
-
       <div className="absolute w-full h-full animate-[spin_20s_linear_infinite]">
         {specialists.map((item, index) => (
           <motion.div
