@@ -1,8 +1,24 @@
 import { Calendar, CircleDollarSign, Notebook, Utensils } from "lucide-react";
 import { useMealPlans } from "../../../hooks/useMealPlans";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
+import { useState } from "react";
+import SubscriptionModal from "../../Modal/SubscriptionModal";
 
 const SubscriptionInfo = () => {
   const { mealPlans } = useMealPlans();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleStartSubscription = () => {
+    if (!user) {
+      navigate("/auth");
+    } else {
+      setShowModal(true);
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
@@ -26,10 +42,9 @@ const SubscriptionInfo = () => {
         </div>
       </section>
 
-
       <section className="mb-12">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-          <Utensils className="opacity-70"/>
+          <Utensils className="opacity-70" />
           Choose The Type of Food
         </h3>
         <ul className="list-disc list-inside text-light opacity-70 space-y-2">
@@ -42,21 +57,21 @@ const SubscriptionInfo = () => {
         </p>
       </section>
 
-
       <section className="mb-12">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-          <Calendar className="opacity-70"/>
-            Choose Your Delivery Days
+          <Calendar className="opacity-70" />
+          Choose Your Delivery Days
         </h3>
         <p className="text-light opacity-70">
-         You are free to choose the delivery day of the week, starting from Monday to Sunday.
+          You are free to choose the delivery day of the week, starting from
+          Monday to Sunday.
         </p>
       </section>
 
       <section className="mb-12">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <CircleDollarSign className="opacity-70" />
-            How to Calculate Prices
+          <CircleDollarSign className="opacity-70" />
+          How to Calculate Prices
         </h3>
         <p className="text-light opacity-70 mb-2">
           <strong>
@@ -70,10 +85,28 @@ const SubscriptionInfo = () => {
       </section>
 
       <div className="text-center">
-        <button className="bg-indigo-600 text-light px-6 py-3 rounded-full hover:bg-indigo-700 hover:scale-110 transition duration-300">
-            Start Subscription
-        </button>
+        {user ? (
+          user.subscription ? (
+            <h1 className=" text-light px-6 py-3 rounded-full bg-indigo-900">
+              You're already subscribed
+            </h1>
+          ) : (
+            <button
+              onClick={handleStartSubscription}
+              className="bg-indigo-600 text-light px-6 py-3 rounded-full hover:bg-indigo-700 hover:scale-110 transition duration-300"
+            >
+              Start Subscription
+            </button>
+          )
+        ) : (
+          <p className="text-sm text-gray-500">Loading user info...</p>
+        )}
       </div>
+
+      <SubscriptionModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 };

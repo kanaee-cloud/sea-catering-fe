@@ -3,6 +3,7 @@ export const API_ENDPOINTS = {
   TESTIMONIALS: '/testimonial',
   AUTH: '/auth',
   USERS: '/user',
+  SUBSCRIPTIONS: '/subscription',
 };
 
 

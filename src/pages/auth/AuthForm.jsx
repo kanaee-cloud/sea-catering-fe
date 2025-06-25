@@ -54,9 +54,9 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto bg-white p-8 rounded-xl shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        {isLogin ? "Login" : "Register"}
+    <div className="max-w-md w-full mx-auto glassmorphism p-8 rounded-xl shadow-lg">
+      <h2 className="text-2xl font-bold mb-6 text-center text-light">
+        {isLogin ? "Welcome back!" : "Welcome to SEA Catering!"}
       </h2>
 
       {error && (
@@ -75,11 +75,11 @@ const AuthForm = () => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {!isLogin && (
           <div>
-            <label className="block text-sm font-medium text-gray-700">Name</label>
+            <label className="block text-sm font-medium text-light">Name</label>
             <input
               type="text"
               name="name"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-lg outline-none bg-transparent glassmorphism"
               value={formData.name}
               onChange={handleChange}
               required
@@ -88,11 +88,11 @@ const AuthForm = () => {
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <label className="block text-sm font-medium text-light">Email</label>
           <input
             type="email"
             name="email"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-lg glassmorphism outline-none bg-transparent"
             value={formData.email}
             onChange={handleChange}
             required
@@ -100,11 +100,11 @@ const AuthForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Password</label>
+          <label className="block text-sm font-medium text-light">Password</label>
           <input
             type="password"
             name="password"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-lg glassmorphism outline-none bg-transparent"
             value={formData.password}
             onChange={handleChange}
             required
@@ -114,17 +114,17 @@ const AuthForm = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+          className="w-full  text-white py-2 px-4 rounded-lg bg-indigo-600 hover:bg-accent transition disabled:opacity-50"
         >
           {loading ? "Please wait..." : isLogin ? "Login" : "Register"}
         </button>
       </form>
 
-      <div className="mt-6 text-center text-sm text-gray-600">
+      <div className="mt-6 text-center text-sm text-light opacity-70">
         {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
         <button
           onClick={() => setIsLogin(!isLogin)}
-          className="text-blue-600 hover:underline font-medium ml-1"
+          className="text-accent hover:underline font-medium ml-1"
         >
           {isLogin ? "Register" : "Login"}
         </button>

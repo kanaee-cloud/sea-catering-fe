@@ -3,6 +3,7 @@ import { register } from "../api/auth/register";
 import { users as getUser } from "../api/auth/users";
 import { logout as logoutApi } from "../api/auth/logout";
 import { useAuthStore } from "../stores/authStore";
+import { useEffect } from "react";
 
 export const useAuth = () => {
   const { user, token, setUser, setToken, clearAuth } = useAuthStore();
@@ -62,6 +63,12 @@ export const useAuth = () => {
       clearAuth(); 
     }
   };
+
+   useEffect(() => {
+    if (token && !user) {
+      fetchUser();
+    }
+  }, [token, user]);
 
   return {
     handleLogin,

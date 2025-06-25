@@ -8,8 +8,9 @@ import MealPlans from "../pages/landing/MealPlans";
 
 // Auth Pages
 import AuthForm from "../pages/auth/AuthForm";
-import { Subscript } from "lucide-react";
+import { Contact, Subscript } from "lucide-react";
 import Subscription from "../pages/landing/Subscription";
+import ContactUs from "../pages/landing/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "subscription",
         element: <Subscription />,
+      },
+      {
+        path: "contact",
+        element: <ContactUs />,
       },
       {
         path: "*",

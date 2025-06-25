@@ -11,13 +11,8 @@ const Navbar = () => {
   const activeRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, token, fetchUser } = useAuth();
+  const { user } = useAuth();
 
-  useEffect(() => {
-    if (token && !user?.username) {
-      fetchUser();
-    }
-  }, [token, user?.username, fetchUser]);
 
   const userName = user?.username || "";
 
@@ -115,7 +110,7 @@ const Navbar = () => {
             </div>
           </nav>
 
-          <div className="hidden md:flex gap-x-2 items-center">
+          <div className="hidden opacity-70 md:flex gap-x-2 items-center">
             {user ? (
               <div className="border flex items-center gap-x-2 px-4 py-2 rounded-full">
                 <CircleUserRound />
