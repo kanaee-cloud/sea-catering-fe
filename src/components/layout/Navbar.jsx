@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { CircleUserRound, Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { getFirstName } from "../../utils/getFirstName";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -10,13 +11,15 @@ const Navbar = () => {
   const activeRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, logout, token, fetchUser } = useAuth();
+  const { user, token, fetchUser } = useAuth();
 
   useEffect(() => {
     if (token && !user?.username) {
       fetchUser();
     }
   }, [token, user?.username, fetchUser]);
+
+  const userName = user?.username || "";
 
   const navItems = [
     { id: "home", label: "Home", href: "/" },
@@ -25,7 +28,6 @@ const Navbar = () => {
     { id: "contact", label: "Contact Us", href: "/contact" },
   ];
 
-  // Get active route based on current location
   const getActiveRoute = () => {
     const currentPath = location.pathname;
     const activeItem = navItems.find((item) => item.href === currentPath);
@@ -34,7 +36,6 @@ const Navbar = () => {
 
   const activeRoute = getActiveRoute();
 
-  // Update underline position based on active item
   useEffect(() => {
     if (activeRef.current) {
       const activeElement = activeRef.current;
@@ -45,7 +46,6 @@ const Navbar = () => {
     }
   }, [activeRoute]);
 
-  // Handle mouse enter for hover effect
   const handleMouseEnter = (e) => {
     const element = e.target;
     setUnderlineStyle({
@@ -54,7 +54,6 @@ const Navbar = () => {
     });
   };
 
-  // Handle mouse leave to return to active item
   const handleMouseLeave = () => {
     if (activeRef.current) {
       const activeElement = activeRef.current;
@@ -65,14 +64,12 @@ const Navbar = () => {
     }
   };
 
-  // Handle navigation click
   const handleNavClick = (e, item) => {
     e.preventDefault();
     navigate(item.href);
     setIsMobileMenuOpen(false);
   };
 
-  // Toggle mobile menu
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -81,7 +78,6 @@ const Navbar = () => {
     <div className="relative p-5">
       <header className="glassmorphism relative shadow-md p-4 top-0 z-50 rounded-full">
         <div className="container mx-auto flex justify-between items-center">
-          {/* Logo */}
           <h1
             className="text-xl font-bold cursor-pointer"
             onClick={() => navigate("/")}
@@ -89,7 +85,6 @@ const Navbar = () => {
             SEA.
           </h1>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex relative" ref={navRef}>
             <div className="relative flex space-x-4">
               {navItems.map((item) => (
@@ -110,7 +105,6 @@ const Navbar = () => {
                 </a>
               ))}
 
-              {/* Moving underline */}
               <div
                 className="absolute bottom-0 h-0.5 bg-accent transition-all duration-300 ease-out"
                 style={{
@@ -121,39 +115,26 @@ const Navbar = () => {
             </div>
           </nav>
 
-          {/* Desktop Login */}
           <div className="hidden md:flex gap-x-2 items-center">
             {user ? (
-              <>
-                <span className="text-sm font-medium text-gray-800">
-                  Hi, {user.username}
+              <div className="border flex items-center gap-x-2 px-4 py-2 rounded-full">
+                <CircleUserRound />
+                <span className="text-sm font-medium">
+                  {getFirstName(userName)}
                 </span>
-                <button
-                  onClick={logout}
-                  className="text-sm font-medium text-white bg-red-500 px-4 py-2 rounded-full hover:bg-red-600 transition"
-                >
-                  Logout
-                </button>
-              </>
+              </div>
             ) : (
-              <>
-                <button
-                  onClick={() => navigate("/auth")}
-                  className="text-sm font-medium hover:bg-transparent text-primary bg-light hover:text-light transition-colors duration-200 px-4 py-2 border border-gray-300 rounded-full hover:border-light"
-                >
+              <div className="px-6 py-3 border-t border-gray-100 mt-2">
+                <button className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
                   Login
                 </button>
-                <button
-                  onClick={() => navigate("/auth")}
-                  className="text-sm font-medium hover:bg-light text-light bg-transparent hover:text-primary transition-colors duration-200 px-4 py-2 border border-gray-300 rounded-full hover:border-light"
-                >
+                <button className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
                   Register
                 </button>
-              </>
+              </div>
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 rounded-md text-gray-600 hover:text-black hover:bg-gray-100 transition-colors duration-200"
             onClick={toggleMobileMenu}
@@ -161,45 +142,55 @@ const Navbar = () => {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
+      </header>
 
-        {/* Mobile Navigation Menu */}
-        <div
-          className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-5 bg-light rounded-2xl shadow-lg border transition-all duration-300 ease-out ${
-            isMobileMenuOpen
-              ? "opacity-100 visible transform translate-y-0"
-              : "opacity-0 invisible transform -translate-y-2"
-          }`}
-        >
-          <nav className="py-4">
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                className={`block px-6 py-3 text-sm font-medium transition-all duration-200 relative cursor-pointer ${
-                  activeRoute === item.id
-                    ? "text-black bg-gray-50 border-l-4 border-black"
-                    : "text-gray-600 hover:text-black hover:bg-gray-50"
-                }`}
-                onClick={(e) => handleNavClick(e, item)}
-              >
-                {item.label}
-              </a>
-            ))}
+      <div
+        className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-5 bg-light rounded-2xl shadow-lg border transition-all duration-300 ease-out ${
+          isMobileMenuOpen
+            ? "opacity-100 visible transform translate-y-0"
+            : "opacity-0 invisible transform -translate-y-2"
+        }`}
+      >
+        <nav className="py-4">
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={item.href}
+              className={`block px-6 py-3 text-sm font-medium transition-all duration-200 relative cursor-pointer ${
+                activeRoute === item.id
+                  ? "text-black bg-gray-50 border-l-4 border-black"
+                  : "text-gray-600 hover:text-black hover:bg-gray-50"
+              }`}
+              onClick={(e) => handleNavClick(e, item)}
+            >
+              {item.label}
+            </a>
+          ))}
 
-            {/* Mobile Login */}
-            <div className="px-6 py-3 border-t border-gray-100 mt-2 ">
-              <button className="w-full text-sm mb-2 font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
+          <div className="px-6 py-3 border-t border-gray-100 mt-2">
+          {user ? (
+            <div className="border border-primary flex text-primary items-center gap-x-2 px-4 py-2 rounded-full">
+              <CircleUserRound />
+              <span className="text-sm font-medium">
+                {getFirstName(userName)}
+              </span>
+            </div>
+          ) : (
+            <div className="px-6 py-3 border-t border-gray-100 mt-2">
+              <button className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
                 Login
               </button>
               <button className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
                 Register
               </button>
             </div>
-          </nav>
-        </div>
-      </header>
+          )}
+          </div>
+        </nav>
+      </div>
     </div>
   );
 };
 
 export default Navbar;
+
