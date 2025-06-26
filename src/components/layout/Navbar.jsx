@@ -71,7 +71,7 @@ const Navbar = () => {
 
   return (
     <div className="relative p-5">
-      <header className="glassmorphism relative shadow-md p-4 top-0 z-50 rounded-full">
+      <header className="glassmorphism relative shadow-md p-4 top-0 z-100 rounded-full">
         <div className="container mx-auto flex justify-between items-center">
           <h1
             className="text-xl font-bold cursor-pointer"
@@ -110,21 +110,18 @@ const Navbar = () => {
             </div>
           </nav>
 
-          <div className="hidden opacity-70 md:flex gap-x-2 items-center">
+          <div className="hidden md:block">
             {user ? (
-              <div className="border flex items-center gap-x-2 px-4 py-2 rounded-full">
+              <div className="border  bg-light text-primary hover:bg-transparent hover:text-light transition-all duration-200  flex items-center gap-x-2 px-4 py-2 rounded-full">
                 <CircleUserRound />
                 <span className="text-sm font-medium">
                   {getFirstName(userName)}
                 </span>
               </div>
             ) : (
-              <div className="px-6 py-3 border-t border-gray-100 mt-2">
-                <button className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
+              <div className=" gap-x-2 w-full flex items-center">
+                <button onClick={() => navigate("/auth")} className="w-full text-sm font-medium text-primary hover:bg-transparent  transition-colors duration-200 px-4 py-2 hover:text-light rounded-full hover:border-light bg-light">
                   Login
-                </button>
-                <button className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
-                  Register
                 </button>
               </div>
             )}
@@ -140,7 +137,7 @@ const Navbar = () => {
       </header>
 
       <div
-        className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-5 bg-light rounded-2xl shadow-lg border transition-all duration-300 ease-out ${
+        className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-5 z-50 bg-light rounded-2xl shadow-lg border transition-all duration-300 ease-out ${
           isMobileMenuOpen
             ? "opacity-100 visible transform translate-y-0"
             : "opacity-0 invisible transform -translate-y-2"
@@ -172,11 +169,8 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="px-6 py-3 border-t border-gray-100 mt-2">
-              <button className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
+              <button onClick={() => navigate("/auth")} className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
                 Login
-              </button>
-              <button className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
-                Register
               </button>
             </div>
           )}

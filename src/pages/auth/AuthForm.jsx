@@ -79,7 +79,7 @@ const AuthForm = () => {
             <input
               type="text"
               name="name"
-              className="w-full px-4 py-2 border rounded-lg outline-none bg-transparent glassmorphism"
+              className="w-full px-4 py-2 border text-light rounded-lg outline-none bg-transparent glassmorphism"
               value={formData.name}
               onChange={handleChange}
               required
@@ -92,7 +92,7 @@ const AuthForm = () => {
           <input
             type="email"
             name="email"
-            className="w-full px-4 py-2 border rounded-lg glassmorphism outline-none bg-transparent"
+            className="w-full px-4 py-2 border rounded-lg text-light glassmorphism outline-none bg-transparent"
             value={formData.email}
             onChange={handleChange}
             required
@@ -104,7 +104,7 @@ const AuthForm = () => {
           <input
             type="password"
             name="password"
-            className="w-full px-4 py-2 border rounded-lg glassmorphism outline-none bg-transparent"
+            className="w-full px-4 py-2 border rounded-lg text-light glassmorphism outline-none bg-transparent"
             value={formData.password}
             onChange={handleChange}
             required

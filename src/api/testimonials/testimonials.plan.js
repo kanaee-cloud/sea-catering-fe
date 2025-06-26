@@ -6,5 +6,9 @@ export const getAllTestimonial = async () => {
   return response.data.data;
 };
 
+export const createTestimonial = async (data) => {
+  const response = await axiosInstance.post(API_ENDPOINTS.TESTIMONIALS, data);
+  return response.data.data;
+}
 
 

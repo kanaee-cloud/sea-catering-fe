@@ -11,7 +11,6 @@ const LandingLayout = () => {
       <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-gradient-to-tr from-blue-500 via-cyan-400 to-purple-400 rounded-full blur-2xl opacity-20" />
       <div className="relative z-10 flex flex-col min-h-screen">
        <Navbar />
-      
         <main className="flex-grow">
           <Outlet />
         </main>

@@ -4,14 +4,16 @@ import "swiper/css";
 
 import { useTestimonials } from "../../../hooks/useTestimonials";
 import ReviewCard from "../../common/ReviewCard";
+import ReviewForm from "./ReviewForm";
 
 const Review = () => {
   const { testimonials, loading, error } = useTestimonials();
 
   return (
-    <div className="w-full h-screen py-10">
-      <div className="text-2xl font-bold text-center mb-8">
-        What Our Customers Say
+    <div className="w-full h-[60vh] py-10">
+      <div className=" font-bold text-center mb-8">
+        <h2 className="text-2xl">What Our Customers Say</h2>
+        <p className="text-center opacity-70 mt-6">People Experience about us</p>
       </div>
 
       {loading ? (
@@ -23,29 +25,26 @@ const Review = () => {
           spaceBetween={30}
           slidesPerView="auto"
           loop={true}
-          speed={4000} 
+          speed={4000}
           autoplay={{
-            delay: 0, // tidak ada jeda antar swipe
+            delay: 0, 
             disableOnInteraction: false,
           }}
           grabCursor={false}
-          allowTouchMove={false} 
+          allowTouchMove={false}
           modules={[Autoplay]}
           className="w-full"
         >
           {testimonials.map((testimonial) => (
-            <SwiperSlide
-              key={testimonial.id}
-              style={{ width: "300px" }} 
-            >
+            <SwiperSlide key={testimonial.id} style={{ width: "300px" }}>
               <ReviewCard testimonial={testimonial} />
             </SwiperSlide>
           ))}
         </Swiper>
       )}
+      
     </div>
   );
 };
 
 export default Review;
-

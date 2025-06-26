@@ -9,7 +9,6 @@ const ContactUs = () => {
         If you have any questions or need assistance, please don't hesitate to
         contact us.
       </p>
-
       <ContactCard />
     </main>
   );

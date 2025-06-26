@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllTestimonial } from '../api/testimonials/testimonials.plan';
+import { createTestimonial, getAllTestimonial } from '../api/testimonials/testimonials.plan';
 import { handleApiError } from '../utils/handleApiError';
 
 export const useTestimonials = () => {
@@ -7,7 +7,7 @@ export const useTestimonials = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchMealPlans = async () => {
+  const fetchTestimonials = async () => {
     try {
       const data = await getAllTestimonial();
       setTestimonials(data);
@@ -19,9 +19,20 @@ export const useTestimonials = () => {
     }
   };
 
+  const postTestimonial = async (formData) => {
+    try {
+      const newTestimonial = await createTestimonial(formData);
+      setTestimonials((prev) => [newTestimonial, ...prev]); 
+      return { success: true };
+    } catch (err) {
+      const apiErr = handleApiError(err);
+      return { success: false, message: apiErr.message };
+    }
+  };
+
   useEffect(() => {
-    fetchMealPlans();
+    fetchTestimonials();
   }, []);
 
-  return { testimonials, loading, error };
+  return { testimonials, loading, error, postTestimonial };
 };
