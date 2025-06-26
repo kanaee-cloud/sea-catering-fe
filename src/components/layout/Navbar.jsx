@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CircleUserRound, Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
 import { getFirstName } from "../../utils/getFirstName";
+import { useCombinedAuth } from "../../hooks/useCombinedAuth";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,10 +11,11 @@ const Navbar = () => {
   const activeRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { 
+    userName, 
+  } = useCombinedAuth();
 
 
-  const userName = user?.username || "";
 
   const navItems = [
     { id: "home", label: "Home", href: "/" },
@@ -111,7 +112,7 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden md:block">
-            {user ? (
+            {userName ? (
               <div className="border  bg-light text-primary hover:bg-transparent hover:text-light transition-all duration-200  flex items-center gap-x-2 px-4 py-2 rounded-full">
                 <CircleUserRound />
                 <span className="text-sm font-medium">
@@ -160,7 +161,7 @@ const Navbar = () => {
           ))}
 
           <div className="px-6 py-3 border-t border-gray-100 mt-2">
-          {user ? (
+          {userName ? (
             <div className="border border-primary flex text-primary items-center gap-x-2 px-4 py-2 rounded-full">
               <CircleUserRound />
               <span className="text-sm font-medium">

@@ -1,15 +1,20 @@
-import { Navigate } from "react-router-dom";
-import { useAuthStore } from "../stores/authStore";
+import { Navigate } from 'react-router-dom';
+import { useRoleGuard } from '../utils/roleGuard';
 
-const ProtectedRoute = ({ children, allowedRoles = [] }) => {
-  const { token, user } = useAuthStore();
+export const ProtectedRoute = ({ children, requireAdmin = false, requireUser = false }) => {
+  const { isAdmin, isUser } = useRoleGuard();
 
-  if (!token) return <Navigate to="/auth" replace />;
-  if (allowedRoles.length > 0 && !allowedRoles.includes(user?.role)) {
-    return <Navigate to="/unauthorized" replace />;
+  if (requireAdmin && !isAdmin()) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  if (requireUser && !isUser()) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!requireAdmin && !requireUser && !isAdmin() && !isUser()) {
+    return <Navigate to="/login" replace />;
   }
 
   return children;
 };
-
-export default ProtectedRoute;

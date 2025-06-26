@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { useAuthStore } from '../stores/authStore';
+import { useUserAuthStore } from '../stores/userAuthStore';
+import { useAdminAuthStore } from '../stores/adminAuthStore';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1',
@@ -8,7 +9,12 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = useAuthStore.getState().token;
+    // Check admin token first, then user token
+    const adminToken = useAdminAuthStore.getState().token;
+    const userToken = useUserAuthStore.getState().token;
+    
+    const token = adminToken || userToken;
+    
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -36,14 +42,24 @@ axiosInstance.interceptors.response.use(
         const res = await axiosInstance.get('/auth/refresh-token');
         const newToken = res.data.accessToken;
 
-        useAuthStore.getState().setToken(newToken);
+        // Determine which store to update based on current token
+        const adminToken = useAdminAuthStore.getState().token;
+        const userToken = useUserAuthStore.getState().token;
+
+        if (adminToken) {
+          useAdminAuthStore.getState().setToken(newToken);
+        } else if (userToken) {
+          useUserAuthStore.getState().setToken(newToken);
+        }
 
         axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
         originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
 
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        useAuthStore.getState().clearAuth(); 
+        // Clear both auth stores on refresh failure
+        useUserAuthStore.getState().clearAuth(); 
+        useAdminAuthStore.getState().clearAuth();
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

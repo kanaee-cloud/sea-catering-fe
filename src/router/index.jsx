@@ -11,6 +11,7 @@ import AuthForm from "../pages/auth/AuthForm";
 import { Contact, Subscript } from "lucide-react";
 import Subscription from "../pages/landing/Subscription";
 import ContactUs from "../pages/landing/ContactUs";
+import AdminLoginForm from "../pages/auth/AdminLoginForm";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path: "/auth/admin",
+    element: <AdminLoginForm />,
+  },
+
 ]);
 
 export default router;

@@ -1,13 +1,13 @@
 import { Calendar, CircleDollarSign, Notebook, Utensils } from "lucide-react";
 import { useMealPlans } from "../../../hooks/useMealPlans";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
 import { useState } from "react";
 import SubscriptionModal from "../../Modal/SubscriptionModal";
+import { useCombinedAuth } from "../../../hooks/useCombinedAuth";
 
 const SubscriptionInfo = () => {
   const { mealPlans } = useMealPlans();
-  const { user } = useAuth();
+  const { isAuthenticated, isAdmin, isUser, user } = useCombinedAuth();
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
@@ -85,22 +85,24 @@ const SubscriptionInfo = () => {
       </section>
 
       <div className="text-center">
-        {user ? (
-          user.subscription ? (
-            <h1 className=" text-light px-6 py-3 rounded-full bg-indigo-900">
-              You're already subscribed
-            </h1>
-          ) : (
-            <button
-              onClick={handleStartSubscription}
-              className="bg-indigo-600 text-light px-6 py-3 rounded-full hover:bg-indigo-700 hover:scale-110 transition duration-300"
-            >
-              Start Subscription
-            </button>
-          )
-        ) : (
+        {!isAuthenticated ? (
           <p className="text-sm text-gray-500">Loading user info...</p>
-        )}
+        ) : isAdmin ? (
+          <p className="text-sm text-gray-500">
+            Admin account - Subscription not available
+          </p>
+        ) : isUser && user?.subscription ? (
+          <h1 className="text-light px-6 py-3 rounded-full bg-indigo-900">
+            You're already subscribed
+          </h1>
+        ) : isUser ? (
+          <button
+            onClick={handleStartSubscription}
+            className="bg-indigo-600 text-light px-6 py-3 rounded-full hover:bg-indigo-700 hover:scale-110 transition duration-300"
+          >
+            Start Subscription
+          </button>
+        ) : null}
       </div>
 
       <SubscriptionModal

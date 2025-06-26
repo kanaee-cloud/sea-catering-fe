@@ -1,17 +1,17 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export const useAuthStore = create(
+export const useAdminAuthStore = create(
   persist(
     (set) => ({
-      user: null,
+      admin: null,
       token: null,
-      setUser: (user) => set({ user }),
+      setAdmin: (admin) => set({ admin }),
       setToken: (token) => set({ token }),
-      clearAuth: () => set({ user: null, token: null }),
+      clearAuth: () => set({ admin: null, token: null }),
     }),
     {
-      name: "auth-storage",
+      name: "admin-auth-storage",
       partialize: (state) => ({ token: state.token }),
     }
   )

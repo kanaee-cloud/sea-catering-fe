@@ -2,11 +2,11 @@ import { login } from "../api/auth/login";
 import { register } from "../api/auth/register";
 import { users as getUser } from "../api/auth/users";
 import { logout as logoutApi } from "../api/auth/logout";
-import { useAuthStore } from "../stores/authStore";
+import { useUserAuthStore } from "../stores/userAuthStore";
 import { useEffect } from "react";
 
 export const useAuth = () => {
-  const { user, token, setUser, setToken, clearAuth } = useAuthStore();
+  const { user, token, setUser, setToken, clearAuth } = useUserAuthStore();
 
   const handleLogin = async (formData) => {
     try {
