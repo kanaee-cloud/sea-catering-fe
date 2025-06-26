@@ -1,4 +1,3 @@
-
 import { adminLogin, adminLogout, adminMe } from "../api/auth/adminAuth";
 import { useAdminAuthStore } from "../stores/adminAuthStore";
 import { useEffect } from "react";
@@ -10,13 +9,10 @@ export const useAdminAuth = () => {
     try {
       const res = await adminLogin(formData);
 
-      const decoded = JSON.parse(atob(res.token.split(".")[1]));
+      setToken(res.token);
 
-      setToken(res.token); 
-      setAdmin({
-        id: decoded.userId,
-        role: decoded.role,
-      });
+      const profileRes = await adminMe();
+      setAdmin(profileRes.details.user);
 
       return { success: true };
     } catch (err) {
@@ -30,11 +26,11 @@ export const useAdminAuth = () => {
 
   const handleAdminLogout = async () => {
     try {
-      await adminLogout(); 
+      await adminLogout();
     } catch (err) {
       console.error("Admin logout failed:", err);
     } finally {
-      clearAuth(); 
+      clearAuth();
     }
   };
 
@@ -42,10 +38,10 @@ export const useAdminAuth = () => {
     try {
       const res = await adminMe();
       setAdmin(res.details.user);
-      console.log("Admin fetched:", res.details.user); 
+      console.log("Admin fetched:", res.details.user);
     } catch (err) {
       console.error("Fetch admin failed:", err);
-      clearAuth(); 
+      clearAuth();
     }
   };
 

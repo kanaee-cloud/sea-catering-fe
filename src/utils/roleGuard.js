@@ -10,6 +10,7 @@ export const useRoleGuard = () => {
   };
 
   const isAdmin = () => {
+    console.log("User from role guard", adminAuth);
     return adminAuth.token && adminAuth.admin?.role === 'ADMIN';
   };
 

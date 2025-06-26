@@ -20,6 +20,8 @@ export default {
         secondary: "#AED2FF",
         accent: "#9400FF",
         light: "#F3F4F6",
+        dark: "#121212",
+        gray: "#212121"
       },
     },
   },

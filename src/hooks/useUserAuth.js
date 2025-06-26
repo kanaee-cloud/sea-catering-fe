@@ -12,13 +12,9 @@ export const useAuth = () => {
     try {
       const res = await login(formData);
 
-      const decoded = JSON.parse(atob(res.token.split(".")[1]));
-
       setToken(res.token); 
-      setUser({
-        id: decoded.userId,
-        role: decoded.role,
-      });
+      const profileRes = await getUser();
+      setUser(profileRes.details.user);
 
       return { success: true };
     } catch (err) {
