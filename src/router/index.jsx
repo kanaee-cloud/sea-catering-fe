@@ -16,6 +16,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import SubscriptionUser from "../pages/admin/SubscriptionUser";
 import { ProtectedRoute } from "./ProtectedRoute";
+import ActiveUser from "../pages/admin/ActiveUser";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "subscription",
         element: <SubscriptionUser />,
+      },
+      {
+        path: "user-list",
+        element: <ActiveUser />,
       },
     ],
   },

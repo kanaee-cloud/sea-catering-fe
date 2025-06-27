@@ -1,16 +1,21 @@
 /* eslint-disable no-unused-vars */
 import {
+  adminCancelSubscription,
   adminDashboard,
   adminLogin,
   adminLogout,
   adminMe,
+  adminPauseSubscription,
+  adminResumeSubscription,
+  userList,
 } from "../api/auth/admin";
 import { useAdminAuthStore } from "../stores/adminAuthStore";
 import { useEffect, useState } from "react";
 
 export const useAdminAuth = () => {
   const { admin, token, setAdmin, setToken, clearAuth } = useAdminAuthStore();
-  const [ dashboard, setDashboard ] = useState(null);
+  const [dashboard, setDashboard] = useState(null);
+  const [userListData, setUserListData] = useState(null);
 
   const handleAdminLogin = async (formData) => {
     try {
@@ -67,15 +72,60 @@ export const useAdminAuth = () => {
     }
   };
 
+  const getAllUserList = async () => {
+    try {
+      const res = await userList();
+      setUserListData(res.data);
+      console.log("User list fetched:", res.data);
+    } catch (err) {
+      return {
+        success: false,
+        message: err.response?.data?.message || "Failed to fetch user list",
+      };
+    }
+  };
+
+  const handlePauseSubscription = async (
+    subscriptionId,
+    pauseStart,
+    pauseEnd
+  ) => {
+    try {
+      await adminPauseSubscription(subscriptionId, pauseStart, pauseEnd);
+      await getAllUserList(); // refresh data
+    } catch (err) {
+      console.error("Pause failed", err);
+    }
+  };
+
+  const handleCancelSubscription = async (subscriptionId) => {
+    try {
+      await adminCancelSubscription(subscriptionId);
+      await getAllUserList(); // refresh data
+    } catch (err) {
+      console.error("Cancel failed", err);
+    }
+  };
+
+  const handleResumeSubscription = async (subscriptionId) => {
+    try {
+      await adminResumeSubscription(subscriptionId);
+      await getAllUserList(); // refresh data
+    } catch (err) {
+      console.error("Resume failed", err);
+    }
+  };
+
   useEffect(() => {
     if (token && !admin) {
       fetchAdmin();
     }
   }, [token, admin]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (admin) {
-      fetchAdminDashboard(); 
+      fetchAdminDashboard();
+      getAllUserList();
     }
   }, [admin]);
 
@@ -86,6 +136,10 @@ export const useAdminAuth = () => {
     fetchAdminDashboard,
     token,
     admin,
-    dashboard
+    dashboard,
+    userListData,
+    handlePauseSubscription,
+    handleCancelSubscription,
+    handleResumeSubscription,
   };
 };

@@ -20,3 +20,32 @@ export const adminLogout = async () => {
   const response = await axiosInstance.post(`${API_ENDPOINTS.AUTH_ADMIN}/logout`);
   return response.data;
 };
+
+export const userList = async () => {
+  const response = await axiosInstance.get(`${API_ENDPOINTS.ADMIN}/user/list`);
+  return response.data;
+}
+
+export const adminPauseSubscription = async (subscriptionId, pauseStart, pauseEnd = null) => {
+  const response = await axiosInstance.patch(`${API_ENDPOINTS.ADMIN}/subscription/pause`, {
+    subscriptionId,
+    pauseStart,
+    pauseEnd,
+  });
+  return response.data;
+};
+
+
+export const adminCancelSubscription = async (subscriptionId) => {
+  const response = await axiosInstance.patch(`${API_ENDPOINTS.ADMIN}/subscription/cancel`, {
+    subscriptionId,
+  });
+  return response.data;
+};
+
+export const adminResumeSubscription = async (subscriptionId) => {
+  const response = await axiosInstance.patch(`${API_ENDPOINTS.ADMIN}/subscription/resume`, {
+    subscriptionId,
+  });
+  return response.data;
+};

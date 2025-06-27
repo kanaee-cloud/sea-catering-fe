@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Hexagon, LayoutDashboard, Package, Menu, X } from "lucide-react";
+import { Hexagon, LayoutDashboard, Package, Menu, X, Users } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,6 +10,7 @@ const AdminSidebar = () => {
   const navItems = [
     { id: "dashboard", label: "Dashboard", href: "/admin", icon: LayoutDashboard  },
     { id: "subscription", label: "Subscription", href: "/admin/subscription", icon: Package  },
+    { id: "user-list", label: "User List", href: "/admin/user-list", icon: Users   },
   ];
 
   

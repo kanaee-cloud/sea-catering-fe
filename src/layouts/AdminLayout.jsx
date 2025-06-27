@@ -5,7 +5,7 @@ import AdminHeadbar from "../components/ui/admin/AdminHeadbar";
 
 const AdminLayout = () => {
   return (
-    <main className="flex bg-dark h-screen text-light gap-4 overflow-hidden">
+    <main className="flex bg-dark min-h-screen text-light gap-4 overflow-hidden">
       <AdminSidebar />
       <div className="flex flex-col flex-1 overflow-hidden gap-4 p-4">
         <AdminHeadbar />
