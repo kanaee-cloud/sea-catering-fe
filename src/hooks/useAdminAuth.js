@@ -57,9 +57,9 @@ export const useAdminAuth = () => {
     }
   };
 
-  const fetchAdminDashboard = async () => {
+  const fetchAdminDashboard = async (dateFilter) => {
     try {
-      const res = await adminDashboard();
+      const res = await adminDashboard(dateFilter);
       setDashboard(res.data);
       console.log("Admin dashboard fetched:", res.data);
       return { success: true, data: res.data };
@@ -116,6 +116,16 @@ export const useAdminAuth = () => {
     }
   };
 
+  const getDefaultDateRange = () => {
+    const today = new Date();
+    const start = new Date(today.getFullYear(), today.getMonth(), 1);
+    const end = today;
+    return {
+      startDate: start.toISOString().split("T")[0],
+      endDate: end.toISOString().split("T")[0],
+    };
+  };
+
   useEffect(() => {
     if (token && !admin) {
       fetchAdmin();
@@ -124,7 +134,8 @@ export const useAdminAuth = () => {
 
   useEffect(() => {
     if (admin) {
-      fetchAdminDashboard();
+      const { startDate, endDate } = getDefaultDateRange();
+      fetchAdminDashboard({ startDate, endDate });
       getAllUserList();
     }
   }, [admin]);

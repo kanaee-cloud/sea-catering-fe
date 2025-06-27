@@ -17,18 +17,19 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume }) => {
   };
 
   return (
-    <div className="overflow-x-auto border rounded-lg">
+    <div className="overflow-x-auto h-[50vh] rounded-lg mt-6">
       <table className="min-w-full table-auto text-sm">
-        <thead className="bg-gray-100 dark:bg-gray-800">
+        <thead className="bg-dark">
           <tr>
             <th className="px-4 py-2 text-left">Name</th>
             <th className="px-4 py-2 text-left">Email</th>
             <th className="px-4 py-2 text-left">Plan</th>
             <th className="px-4 py-2 text-left">Status</th>
+            <th className="px-4 py-2 text-left">Created At</th>
             <th className="px-4 py-2 text-left">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y">
+        <tbody className="">
           {users.map((user) => {
             const { id, username, email, subscription } = user;
             const isOpen = openMenuId === subscription.id;
@@ -38,11 +39,22 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume }) => {
                 key={id}
                 className="hover:bg-gray-50 dark:hover:bg-gray-700 relative"
               >
-                <td className="px-4 py-2 font-medium">{username}</td>
-                <td className="px-4 py-2">{email}</td>
+                <td className="px-4 py-2 font-medium opacity-70">{username}</td>
+                <td className="px-4 py-2 opacity-70">{email}</td>
                 <td className="px-4 py-2">{subscription.planType}</td>
-                <td className="px-4 py-2 font-semibold text-green-600">
+                <td
+                  className={`font-semibold ${
+                    user.subscription.status === "ACTIVE"
+                      ? "text-green-600"
+                      : user.subscription.status === "CANCELLED"
+                      ? "text-red-500"
+                      : "text-yellow-500"
+                  }`}
+                >
                   {subscription.status}
+                </td>
+                <td className="px-4 py-2 font-semibold">
+                  {new Date(subscription.createdAt).toLocaleDateString()}
                 </td>
                 <td className="px-4 py-2 relative">
                   <div className="relative inline-block text-left">
@@ -54,7 +66,7 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume }) => {
                     </button>
 
                     {isOpen && (
-                      <div className="absolute right-0 mt-2 w-36 bg-white border rounded-md shadow-lg z-50">
+                      <div className="absolute right-0 mt-2 w-36 bg-gray border rounded-md shadow-lg z-50">
                         {subscription.status === "ACTIVE" && (
                           <>
                             <button
@@ -73,7 +85,7 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume }) => {
                               }}
                               className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
                             >
-                              Cancel
+                              Cancel Subscription
                             </button>
                           </>
                         )}

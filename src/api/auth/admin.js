@@ -11,9 +11,11 @@ export const adminMe = async () => {
   return response.data;
 };
 
-export const adminDashboard = async () => {
-  const response = await axiosInstance.get(`${API_ENDPOINTS.ADMIN}/dashboard`);
-  return response.data;
+export const adminDashboard = async ({ startDate, endDate } = {}) => {
+  const res = await axiosInstance.get(`${API_ENDPOINTS.ADMIN}/dashboard`, {
+    params: { startDate, endDate },
+  });
+  return res.data;
 };
 
 export const adminLogout = async () => {
