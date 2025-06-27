@@ -6,7 +6,7 @@ const AllUserTable = ({ users }) => {
   }
 
   return (
-    <div className="mt-6 overflow-x-auto rounded-lg">
+    <div className="mt-6 overflow-x-auto bg-dark/50 rounded-lg">
       <table className="min-w-full table-auto text-sm">
         <thead className="bg-dark">
           <tr>

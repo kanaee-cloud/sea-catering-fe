@@ -17,7 +17,7 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume }) => {
   };
 
   return (
-    <div className="overflow-x-auto h-[50vh] rounded-lg mt-6">
+    <div className="overflow-x-auto bg-dark/50 h-full rounded-lg mt-6">
       <table className="min-w-full table-auto text-sm">
         <thead className="bg-dark">
           <tr>
