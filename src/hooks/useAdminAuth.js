@@ -1,9 +1,16 @@
-import { adminLogin, adminLogout, adminMe } from "../api/auth/adminAuth";
+/* eslint-disable no-unused-vars */
+import {
+  adminDashboard,
+  adminLogin,
+  adminLogout,
+  adminMe,
+} from "../api/auth/admin";
 import { useAdminAuthStore } from "../stores/adminAuthStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const useAdminAuth = () => {
   const { admin, token, setAdmin, setToken, clearAuth } = useAdminAuthStore();
+  const [ dashboard, setDashboard ] = useState(null);
 
   const handleAdminLogin = async (formData) => {
     try {
@@ -45,17 +52,40 @@ export const useAdminAuth = () => {
     }
   };
 
+  const fetchAdminDashboard = async () => {
+    try {
+      const res = await adminDashboard();
+      setDashboard(res.data);
+      console.log("Admin dashboard fetched:", res.data);
+      return { success: true, data: res.data };
+    } catch (err) {
+      return {
+        success: false,
+        message:
+          err.response?.data?.message || "Failed to fetch admin dashboard",
+      };
+    }
+  };
+
   useEffect(() => {
     if (token && !admin) {
       fetchAdmin();
     }
   }, [token, admin]);
 
+   useEffect(() => {
+    if (admin) {
+      fetchAdminDashboard(); 
+    }
+  }, [admin]);
+
   return {
     handleAdminLogin,
     handleAdminLogout,
     fetchAdmin,
+    fetchAdminDashboard,
     token,
     admin,
+    dashboard
   };
 };

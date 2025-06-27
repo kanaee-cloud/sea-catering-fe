@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { useAuth } from "../../hooks/useUserAuth";
+import { useUserAuth } from "../../hooks/useUserAuth";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react";
 import SuccessPage from "../../components/common/SuccessPage";
@@ -18,7 +19,7 @@ const AuthForm = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { handleLogin, handleRegister } = useAuth();
+  const { handleLogin, handleRegister } = useUserAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {

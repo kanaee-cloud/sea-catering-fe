@@ -5,7 +5,7 @@ import { logout as logoutApi } from "../api/auth/logout";
 import { useUserAuthStore } from "../stores/userAuthStore";
 import { useEffect } from "react";
 
-export const useAuth = () => {
+export const useUserAuth = () => {
   const { user, token, setUser, setToken, clearAuth } = useUserAuthStore();
 
   const handleLogin = async (formData) => {

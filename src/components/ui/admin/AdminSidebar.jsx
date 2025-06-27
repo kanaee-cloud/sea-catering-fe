@@ -93,7 +93,7 @@ const AdminSidebar = () => {
       </motion.button>
 
       <motion.nav 
-        className="hidden md:block bg-gray py-6 max-w-md relative rounded-xl"
+        className="hidden md:block bg-gray py-6 max-w-md relative"
         variants={sidebarVariants}
         initial="hidden"
         animate="visible"

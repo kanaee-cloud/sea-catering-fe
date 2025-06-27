@@ -1,5 +1,4 @@
-// useCombinedAuth.js
-import { useAuth } from "./useUserAuth";
+import { useUserAuth } from "./useUserAuth";
 import { useAdminAuth } from "./useAdminAuth";
 
 export const useCombinedAuth = () => {
@@ -8,7 +7,7 @@ export const useCombinedAuth = () => {
     token: userToken,
     handleLogout: userLogout,
     ...userMethods
-  } = useAuth();
+  } = useUserAuth();
   const {
     admin,
     token: adminToken,

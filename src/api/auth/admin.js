@@ -11,6 +11,11 @@ export const adminMe = async () => {
   return response.data;
 };
 
+export const adminDashboard = async () => {
+  const response = await axiosInstance.get(`${API_ENDPOINTS.ADMIN}/dashboard`);
+  return response.data;
+};
+
 export const adminLogout = async () => {
   const response = await axiosInstance.post(`${API_ENDPOINTS.AUTH_ADMIN}/logout`);
   return response.data;
