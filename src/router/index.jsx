@@ -18,6 +18,10 @@ import SubscriptionUser from "../pages/admin/SubscriptionUser";
 import { ProtectedRoute } from "./ProtectedRoute";
 import ActiveUser from "../pages/admin/ActiveUser";
 import AdminSettings from "../pages/admin/AdminSettings";
+import UserDashboard from "../pages/users/UserDashboard";
+import UserSubscription from "../pages/users/UserSubscription";
+import UserSettings from "../pages/users/UserSettings";
+import UserLayout from "../layouts/UserLayout";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +73,28 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: <AdminSettings />,
+      },
+    ],
+  },
+  {
+    path: "/users",
+    element: (
+      <ProtectedRoute requireUser>
+        <UserLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <UserDashboard />,
+      },
+      {
+        path: "subscription",
+        element: <UserSubscription />,
+      },
+      {
+        path: "settings",
+        element: <UserSettings />,
       },
     ],
   },

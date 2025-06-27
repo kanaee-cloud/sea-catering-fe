@@ -75,7 +75,6 @@ export default function AdminLoginForm() {
 
   const navigateToUserLogin = () => {
     navigate('/auth')
-    alert('Navigate to user login');
   };
 
 

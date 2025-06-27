@@ -1,3 +1,4 @@
+import { Shield } from "lucide-react";
 import React from "react";
 
 const SuccessPage = () => {

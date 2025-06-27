@@ -51,12 +51,16 @@ const AuthForm = () => {
       ...(isLogin ? {} : { username: formData.name }),
     };
 
-    const res = isLogin ? await handleLogin(payload) : await handleRegister(payload);
+    const res = isLogin
+      ? await handleLogin(payload)
+      : await handleRegister(payload);
 
     if (res.success) {
       if (isLogin) {
         setSuccess(true);
-        navigate("/mealplans", { replace: true });
+        setTimeout(() => {
+          navigate("/mealplans", { replace: true });
+        }, 5000);
       } else {
         setIsLogin(true);
       }
@@ -82,11 +86,11 @@ const AuthForm = () => {
     <div>
       <div className="w-full max-w-lg">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            SEA
-          </h1>
+          <h1 className="text-3xl font-bold text-white mb-2">SEA</h1>
           <p className="text-blue-100/80">
-            {isLogin ? "Sign in to start exploring meal plans" : "Create your SEA account"}
+            {isLogin
+              ? "Sign in to start exploring meal plans"
+              : "Create your SEA account"}
           </p>
         </div>
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 p-8">
@@ -100,7 +104,10 @@ const AuthForm = () => {
 
             {!isLogin && (
               <div className="space-y-2">
-                <label htmlFor="name" className="block text-sm font-medium text-white">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-white"
+                >
                   Name
                 </label>
                 <div className="relative">
@@ -129,7 +136,10 @@ const AuthForm = () => {
             )}
 
             <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-medium text-white">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-white"
+              >
                 Email Address
               </label>
               <div className="relative">
@@ -160,7 +170,10 @@ const AuthForm = () => {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="password" className="block text-sm font-medium text-white">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-white"
+              >
                 Password
               </label>
               <div className="relative">
@@ -187,7 +200,11 @@ const AuthForm = () => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-accent hover:text-blue-100 transition-colors"
                   disabled={loading}
                 >
-                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
                 </button>
               </div>
               {fieldErrors.password && (
@@ -209,20 +226,31 @@ const AuthForm = () => {
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                   <span>{isLogin ? "Signing in..." : "Registering..."}</span>
                 </div>
+              ) : isLogin ? (
+                "Sign In"
               ) : (
-                isLogin ? "Sign In" : "Register"
+                "Register"
               )}
             </button>
           </div>
-
           <div className="mt-6 pt-6 border-t border-white/20 text-center">
             <button
               onClick={() => setIsLogin(!isLogin)}
-              className="text-blue-300 hover:text-blue-100 text-sm transition-colors underline"
+              className="text-blue-300 hover:text-blue-100 text-sm transition-colors"
             >
-              {isLogin ? "Don't have an account? Register" : "Already have an account? Sign in"}
+              {isLogin
+                ? "Don't have an account? Register"
+                : "Already have an account? Sign in"}
             </button>
           </div>
+        </div>
+        <div className="text-center mt-6">
+          <button
+            onClick={() => navigate("/auth/admin")}
+            className="text-blue-300 hover:text-blue-100 text-sm transition-colors underline"
+          >
+            ← Back to Admin Login
+          </button>
         </div>
       </div>
     </div>

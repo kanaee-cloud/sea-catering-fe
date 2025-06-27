@@ -1,6 +1,6 @@
 import { login } from "../api/auth/login";
 import { register } from "../api/auth/register";
-import { users as getUser } from "../api/auth/users";
+import { cancelSubscription, users as getUser, pauseSubscription, resumeSubscription } from "../api/auth/users";
 import { logout as logoutApi } from "../api/auth/logout";
 import { useUserAuthStore } from "../stores/userAuthStore";
 import { useEffect } from "react";
@@ -60,6 +60,45 @@ export const useUserAuth = () => {
     }
   };
 
+  const handlePause = async () => {
+  try {
+    const res = await pauseSubscription();
+    await fetchUser(); // refresh user state after update
+    return { success: true, message: res.message };
+  } catch (err) {
+    return {
+      success: false,
+      message: err.response?.data?.message || "Failed to pause subscription",
+    };
+  }
+};
+
+const handleResume = async () => {
+  try {
+    const res = await resumeSubscription();
+    await fetchUser();
+    return { success: true, message: res.message };
+  } catch (err) {
+    return {
+      success: false,
+      message: err.response?.data?.message || "Failed to resume subscription",
+    };
+  }
+};
+
+const handleCancel = async () => {
+  try {
+    const res = await cancelSubscription();
+    await fetchUser();
+    return { success: true, message: res.message };
+  } catch (err) {
+    return {
+      success: false,
+      message: err.response?.data?.message || "Failed to cancel subscription",
+    };
+  }
+};
+
    useEffect(() => {
     if (token && !user) {
       fetchUser();
@@ -73,5 +112,8 @@ export const useUserAuth = () => {
     fetchUser,
     token,
     user,
+    handlePause,
+    handleResume,
+    handleCancel
   };
 };
