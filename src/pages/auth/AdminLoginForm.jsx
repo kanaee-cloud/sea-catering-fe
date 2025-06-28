@@ -15,7 +15,7 @@ export default function AdminLoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const { handleAdminLogin } = useAdminAuth();
@@ -51,7 +51,7 @@ export default function AdminLoginForm() {
       const result = await handleAdminLogin(formData);
       
       if (result.success) {
-        setSuccess(true);
+        navigate('/success')
         navigate('/admin/dashboard', { replace: true });
       } else {
         setError(result.message);
@@ -78,11 +78,7 @@ export default function AdminLoginForm() {
   };
 
 
-  if (success) {
-    return (
-      <SuccessPage />
-    );
-  }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-primary to-slate-900 flex items-center justify-center p-4">

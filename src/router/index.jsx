@@ -22,6 +22,7 @@ import UserDashboard from "../pages/users/UserDashboard";
 import UserSubscription from "../pages/users/UserSubscription";
 import UserSettings from "../pages/users/UserSettings";
 import UserLayout from "../layouts/UserLayout";
+import SuccessPage from "../components/common/SuccessPage";
 
 const router = createBrowserRouter([
   {
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
   {
     path: "/auth/admin",
     element: <AdminLoginForm />,
+  },
+  {
+    path: "/success",
+    element: <SuccessPage />,
   },
 ]);
 

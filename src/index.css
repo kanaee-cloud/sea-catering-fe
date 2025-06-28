@@ -81,3 +81,19 @@ body{
 .rotate-reverse {
   transform: rotate(-360deg);
 }
+
+.rainbow-shadow {
+  background: conic-gradient(
+    from 0deg,
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+  border-radius: 1rem;
+  filter: blur(12px);
+}

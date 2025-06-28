@@ -3,13 +3,12 @@ import { useUserAuthStore } from '../stores/userAuthStore';
 import { useAdminAuthStore } from '../stores/adminAuthStore';
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1',
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    // Check admin token first, then user token
     const adminToken = useAdminAuthStore.getState().token;
     const userToken = useUserAuthStore.getState().token;
     

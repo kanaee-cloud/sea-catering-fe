@@ -13,6 +13,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { 
     userName, 
+    isAdmin
   } = useCombinedAuth();
 
 
@@ -113,7 +114,7 @@ const Navbar = () => {
 
           <div className="hidden md:block">
             {userName ? (
-              <div className="border  bg-light text-primary hover:bg-transparent hover:text-light transition-all duration-200  flex items-center gap-x-2 px-4 py-2 rounded-full">
+              <div onClick={() => navigate(isAdmin ? "/admin" : "/users")} className="border  bg-light text-primary hover:bg-transparent hover:text-light transition-all duration-200  flex items-center gap-x-2 px-4 py-2 rounded-full">
                 <CircleUserRound />
                 <span className="text-sm font-medium">
                   {getFirstName(userName)}
@@ -162,9 +163,9 @@ const Navbar = () => {
 
           <div className="px-6 py-3 border-t border-gray-100 mt-2">
           {userName ? (
-            <div className="border border-primary flex text-primary items-center gap-x-2 px-4 py-2 rounded-full">
+            <div onClick={() => navigate(isAdmin ? "/admin" : "/users")} className="border border-primary flex text-primary items-center gap-x-2 px-4 py-2 rounded-full">
               <CircleUserRound />
-              <span className="text-sm font-medium">
+              <span className="text-sm font-medium" onClick={() => navigate("/profile")}>
                 {getFirstName(userName)}
               </span>
             </div>

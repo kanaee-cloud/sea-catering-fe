@@ -2,7 +2,7 @@ import { Calendar, CircleDollarSign, Notebook, Utensils } from "lucide-react";
 import { useMealPlans } from "../../../hooks/useMealPlans";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import SubscriptionModal from "../../Modal/SubscriptionModal";
+import SubscriptionModal from "../../Modal/subscription/SubscriptionModal";
 import { useCombinedAuth } from "../../../hooks/useCombinedAuth";
 
 const SubscriptionInfo = () => {
@@ -86,7 +86,12 @@ const SubscriptionInfo = () => {
 
       <div className="text-center">
         {!isAuthenticated ? (
-          <p className="text-sm text-gray-500">Loading user info...</p>
+           <button
+            onClick={handleStartSubscription}
+            className="bg-indigo-600 text-light px-6 py-3 rounded-full hover:bg-indigo-700 hover:scale-110 transition duration-300"
+          >
+            Start Subscription
+          </button>
         ) : isAdmin ? (
           <p className="text-sm text-gray-500">
             Admin account - Subscription not available

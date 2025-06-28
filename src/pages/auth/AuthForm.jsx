@@ -16,7 +16,6 @@ const AuthForm = () => {
   const [error, setError] = useState(null);
   const [details, setDetails] = useState([]);
   const [fieldErrors, setFieldErrors] = useState({});
-  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { handleLogin, handleRegister } = useUserAuth();
@@ -57,9 +56,9 @@ const AuthForm = () => {
 
     if (res.success) {
       if (isLogin) {
-        setSuccess(true);
+        navigate('/success')
         setTimeout(() => {
-          navigate("/mealplans", { replace: true });
+          navigate("/users", { replace: true });
         }, 5000);
       } else {
         setIsLogin(true);
@@ -80,7 +79,7 @@ const AuthForm = () => {
     setLoading(false);
   };
 
-  if (success) return <SuccessPage />;
+  // if (success) return <SuccessPage />;
 
   return (
     <div>

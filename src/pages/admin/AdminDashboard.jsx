@@ -1,74 +1,77 @@
-import { useState, useEffect } from "react";
+// pages/admin/AdminDashboard.jsx
+
 import { useAdminAuth } from "../../hooks/useAdminAuth";
 import AnalyticsCard from "../../components/ui/admin/AnalyticsCard";
-
-
-const formatDate = (date) => date.toISOString().split("T")[0];
+import DateRangeFilter from "../../components/ui/admin/DateRangeFilter";
+import { useState } from "react";
+import AdminCard from "../../components/ui/admin/AdminCard";
 
 const AdminDashboard = () => {
-  const { fetchAdminDashboard, dashboard } = useAdminAuth();
+  const { fetchAdminDashboard, dashboard, getDefaultDateRange, admin } = useAdminAuth();
+  const defaultRange = getDefaultDateRange();
+  const [filters, setFilters] = useState({
+    startDate: defaultRange.startDate,
+    endDate: defaultRange.endDate,
+  });
 
-  const defaultStart = formatDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1)); 
-  const defaultEnd = formatDate(new Date()); 
+  const handleFilterChange = (key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
 
-  const [startDate, setStartDate] = useState(defaultStart);
-  const [endDate, setEndDate] = useState(defaultEnd);
+  const handleSubmit = async () => {
+    await fetchAdminDashboard(filters.startDate, filters.endDate);
+  };
 
 
-  useEffect(() => {
-    if (startDate && endDate) {
-      fetchAdminDashboard({ startDate, endDate });
-    }
-  }, [startDate, endDate]);
+
+
 
   return (
     <section className="flex flex-col gap-6">
-      <div className="lg:flex items-center justify-between gap-4">
-      <div>
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <p className="text-sm opacity-70 mt-2">Real-time analytics and insights</p>
-      </div>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex justify-between items-center mb-6">
         <div>
-          <label className="text-sm block mb-1">Start Date</label>
-          <input
-            type="date"
-            className=" px-2 py-1 rounded opacity-70 bg-dark/50"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
+          <h1 className="text-2xl font-bold">Welcome back, {admin.username}</h1>
+          <p className="text-sm opacity-70">Good to see you again</p>
         </div>
-        <div>
-          <label className="text-sm block mb-1">End Date</label>
-          <input
-            type="date"
-            className="bg-dark/50 opacity-70 px-2 py-1 rounded"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
+          <AdminCard user={admin} />
+      </div>
+      <div className="lg:flex items-start justify-between gap-6">
+        <div className="mb-4 lg:mb-0">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p className="text-sm opacity-70 mt-2">
+            Real-time analytics and insights
+          </p>
         </div>
+      <DateRangeFilter
+        startDate={filters.startDate}
+        endDate={filters.endDate}
+        onChange={handleFilterChange}
+        onSubmit={handleSubmit}
+      />
       </div>
-      </div>
-
-      {/* Dashboard Cards */}
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-center">
         <AnalyticsCard
           title="New Subscriptions"
           value={dashboard?.newSubscriptions || 0}
           description="Since selected range"
           gradient
+         
         />
         <AnalyticsCard
           title="MRR (Monthly Revenue)"
           value={`Rp ${dashboard?.MRR?.toLocaleString("id-ID") || 0}`}
           description="Estimated gross revenue"
+         
         />
         <AnalyticsCard
           title="Reactivations"
           value={dashboard?.reactivations || 0}
           description="Returning customers"
+    
         />
       </div>
+    
     </section>
   );
 };

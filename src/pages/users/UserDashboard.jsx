@@ -19,6 +19,7 @@ const UserDashboard = () => {
         <IdentityCard user={user} />
       </div>
 
+    {user.subscription && (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 mb-4">
         <StatCard
           title="Balance"
@@ -34,11 +35,12 @@ const UserDashboard = () => {
         />
         <StatCard
           title="Est. Balance IDR"
-          value="Rp 3.096.000"
+          value={user.subscription.totalPrice}
           subtitle="Active Subscription"
           color="bg-indigo-600"
         />
       </div>
+      )}
 
       {user.subscription && (
         <div className="mt-6">

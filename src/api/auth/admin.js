@@ -11,10 +11,12 @@ export const adminMe = async () => {
   return response.data;
 };
 
-export const adminDashboard = async ({ startDate, endDate } = {}) => {
-  const res = await axiosInstance.get(`${API_ENDPOINTS.ADMIN}/dashboard`, {
-    params: { startDate, endDate },
-  });
+export const adminDashboard = async (startDate, endDate) => {
+  let query = "";
+  if (startDate && endDate) {
+    query = `?startDate=${startDate}&endDate=${endDate}`;
+  }
+  const res = await axiosInstance.get(`${API_ENDPOINTS.ADMIN}/dashboard${query}`);
   return res.data;
 };
 

@@ -4,6 +4,7 @@ import { cancelSubscription, users as getUser, pauseSubscription, resumeSubscrip
 import { logout as logoutApi } from "../api/auth/logout";
 import { useUserAuthStore } from "../stores/userAuthStore";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export const useUserAuth = () => {
   const { user, token, setUser, setToken, clearAuth } = useUserAuthStore();
@@ -15,9 +16,10 @@ export const useUserAuth = () => {
       setToken(res.token); 
       const profileRes = await getUser();
       setUser(profileRes.details.user);
-
+      toast.success("Login successful!");
       return { success: true };
     } catch (err) {
+      toast.error(err.response?.data?.message || "Login failed");
       return {
         success: false,
         message: err.response?.data?.message || "Login failed",
@@ -29,8 +31,10 @@ export const useUserAuth = () => {
   const handleRegister = async (formData) => {
     try {
       const res = await register(formData);
+      toast.success(res.message || "Register successful!");
       return { success: true, message: res.message };
     } catch (err) {
+      toast.error(err.response?.data?.message || "Register failed");
       return {
         success: false,
         message: err.response?.data?.message || "Register failed",
@@ -42,7 +46,9 @@ export const useUserAuth = () => {
   const handleLogout = async () => {
     try {
       await logoutApi(); 
+       toast.success("Logout successful!");
     } catch (err) {
+       toast.error("Logout failed");
       console.error("Logout failed:", err);
     } finally {
       clearAuth(); 
@@ -53,7 +59,6 @@ export const useUserAuth = () => {
     try {
       const res = await getUser();
       setUser(res.details.user);
-      console.log("User fetched:", res.details.user); 
     // eslint-disable-next-line no-unused-vars
     } catch (err) {
       clearAuth(); 
@@ -65,8 +70,10 @@ export const useUserAuth = () => {
     const pauseStart = new Date().toISOString();
     const res = await pauseSubscription({ subscriptionId, pauseStart });
     await fetchUser();
+    toast.success(res.message || "Subscription paused.");
     return { success: true, message: res.message };
   } catch (err) {
+    toast.error(err.response?.data?.message || "Failed to pause subscription");
     return {
       success: false,
       message: err.response?.data?.message || "Failed to pause subscription",
@@ -78,8 +85,10 @@ const handleResume = async (subscriptionId) => {
   try {
     const res = await resumeSubscription(subscriptionId);
     await fetchUser();
+    toast.success(res.message || "Subscription resumed.");
     return { success: true, message: res.message };
   } catch (err) {
+     toast.error(err.response?.data?.message || "Failed to resume subscription");
     return {
       success: false,
       message: err.response?.data?.message || "Failed to resume subscription",
@@ -87,18 +96,20 @@ const handleResume = async (subscriptionId) => {
   }
 };
 
-const handleCancel = async (subscriptionId) => {
-  try {
-    const res = await cancelSubscription(subscriptionId);
-    await fetchUser();
-    return { success: true, message: res.message };
-  } catch (err) {
-    return {
-      success: false,
-      message: err.response?.data?.message || "Failed to cancel subscription",
-    };
-  }
-};
+  const handleCancel = async (subscriptionId) => {
+    try {
+      const res = await cancelSubscription(subscriptionId);
+      await fetchUser();
+      toast.success(res.message || "Subscription canceled.");
+      return { success: true, message: res.message };
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to cancel subscription");
+      return {
+        success: false,
+        message: err.response?.data?.message || "Failed to cancel subscription",
+      };
+    }
+  };
 
    useEffect(() => {
     if (token && !user) {
