@@ -92,7 +92,7 @@ export const useAdminAuth = () => {
   ) => {
     try {
       await adminPauseSubscription(subscriptionId, pauseStart, pauseEnd);
-      await getAllUserList(); // refresh data
+      await getAllUserList(); 
     } catch (err) {
       console.error("Pause failed", err);
     }
@@ -101,7 +101,7 @@ export const useAdminAuth = () => {
   const handleCancelSubscription = async (subscriptionId) => {
     try {
       await adminCancelSubscription(subscriptionId);
-      await getAllUserList(); // refresh data
+      await getAllUserList(); 
     } catch (err) {
       console.error("Cancel failed", err);
     }
@@ -110,7 +110,7 @@ export const useAdminAuth = () => {
   const handleResumeSubscription = async (subscriptionId) => {
     try {
       await adminResumeSubscription(subscriptionId);
-      await getAllUserList(); // refresh data
+      await getAllUserList(); 
     } catch (err) {
       console.error("Resume failed", err);
     }

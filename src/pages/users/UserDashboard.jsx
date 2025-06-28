@@ -1,9 +1,8 @@
-import React from "react";
+import IdentityCard from "../../components/ui/users/IdentityCard";
+import StatCard from "../../components/ui/users/StatCard";
+import UserSubscriptionCard from "../../components/ui/users/UserSubscriptionCard";
 import { useUserAuth } from "../../hooks/useUserAuth";
-import IdentityCard from "../../components/common/IdentityCard";
-import SubscriptionCard from "../../components/common/UserSubscriptionCard";
-import StatCard from "../../components/common/StatCard";
-import UserSubscriptionCard from "../../components/common/UserSubscriptionCard";
+
 
 const UserDashboard = () => {
   const { user } = useUserAuth();

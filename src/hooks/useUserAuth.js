@@ -60,10 +60,11 @@ export const useUserAuth = () => {
     }
   };
 
-  const handlePause = async () => {
+  const handlePause = async (subscriptionId) => {
   try {
-    const res = await pauseSubscription();
-    await fetchUser(); // refresh user state after update
+    const pauseStart = new Date().toISOString();
+    const res = await pauseSubscription({ subscriptionId, pauseStart });
+    await fetchUser();
     return { success: true, message: res.message };
   } catch (err) {
     return {
@@ -73,9 +74,9 @@ export const useUserAuth = () => {
   }
 };
 
-const handleResume = async () => {
+const handleResume = async (subscriptionId) => {
   try {
-    const res = await resumeSubscription();
+    const res = await resumeSubscription(subscriptionId);
     await fetchUser();
     return { success: true, message: res.message };
   } catch (err) {
@@ -86,9 +87,9 @@ const handleResume = async () => {
   }
 };
 
-const handleCancel = async () => {
+const handleCancel = async (subscriptionId) => {
   try {
-    const res = await cancelSubscription();
+    const res = await cancelSubscription(subscriptionId);
     await fetchUser();
     return { success: true, message: res.message };
   } catch (err) {

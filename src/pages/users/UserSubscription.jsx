@@ -1,5 +1,5 @@
 import React from 'react'
-import UserSubscriptionActions from '../../components/common/UserSubscriptionAction'
+import UserSubscriptionActions from '../../components/ui/users/UserSubscriptionActions'
 
 const UserSubscription = () => {
   return (

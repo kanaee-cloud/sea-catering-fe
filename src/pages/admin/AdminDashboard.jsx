@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAdminAuth } from "../../hooks/useAdminAuth";
-import AnalyticsCard from "../../components/common/AnalyticsCard";
+import AnalyticsCard from "../../components/ui/admin/AnalyticsCard";
 
-// Fungsi bantu untuk format tanggal yyyy-mm-dd
+
 const formatDate = (date) => date.toISOString().split("T")[0];
 
 const AdminDashboard = () => {
@@ -14,7 +14,7 @@ const AdminDashboard = () => {
   const [startDate, setStartDate] = useState(defaultStart);
   const [endDate, setEndDate] = useState(defaultEnd);
 
-  // Fetch saat startDate / endDate berubah
+
   useEffect(() => {
     if (startDate && endDate) {
       fetchAdminDashboard({ startDate, endDate });

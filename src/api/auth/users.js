@@ -6,17 +6,25 @@ export const users = async () => {
     return response.data;
 }
 
-export const pauseSubscription = async () => {
-  const res = await axiosInstance.patch(`${API_ENDPOINTS.SUBSCRIPTIONS}/pause`);
+export const pauseSubscription = async ({ subscriptionId, pauseStart, pauseEnd = null }) => {
+  const res = await axiosInstance.patch(`${API_ENDPOINTS.SUBSCRIPTIONS}/pause`, {
+    subscriptionId,
+    pauseStart,
+    pauseEnd,
+  });
   return res.data;
 };
 
-export const resumeSubscription = async () => {
-  const res = await axiosInstance.patch(`${API_ENDPOINTS.SUBSCRIPTIONS}/resume`);
+export const resumeSubscription = async (subscriptionId) => {
+  const res = await axiosInstance.patch(`${API_ENDPOINTS.SUBSCRIPTIONS}/resume`, {
+    subscriptionId,
+  });
   return res.data;
 };
 
-export const cancelSubscription = async () => {
-  const res = await axiosInstance.patch(`${API_ENDPOINTS.SUBSCRIPTIONS}/cancel`);
+export const cancelSubscription = async (subscriptionId) => {
+  const res = await axiosInstance.patch(`${API_ENDPOINTS.SUBSCRIPTIONS}/cancel`, {
+    subscriptionId,
+  });
   return res.data;
 };
