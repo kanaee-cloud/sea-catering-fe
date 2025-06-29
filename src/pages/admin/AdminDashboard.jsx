@@ -28,7 +28,7 @@ const AdminDashboard = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <div className="flex justify-between items-center mb-6">
+      <div className="lg:flex justify-between items-center mb-6">
         <div>
           <h1 className="text-2xl font-bold">Welcome back, {admin.username}</h1>
           <p className="text-sm opacity-70">Good to see you again</p>
