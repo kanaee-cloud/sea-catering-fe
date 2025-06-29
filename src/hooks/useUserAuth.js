@@ -46,9 +46,7 @@ export const useUserAuth = () => {
   const handleLogout = async () => {
     try {
       await logoutApi(); 
-       toast.success("Logout successful!");
     } catch (err) {
-       toast.error("Logout failed");
       console.error("Logout failed:", err);
     } finally {
       clearAuth(); 

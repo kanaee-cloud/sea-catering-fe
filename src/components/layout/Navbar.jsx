@@ -139,7 +139,7 @@ const Navbar = () => {
       </header>
 
       <div
-        className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-5 z-50 bg-light rounded-2xl shadow-lg border transition-all duration-300 ease-out ${
+        className={`md:hidden absolute top-full left-0 right-0 mt-2 mx-5 z-50 glassmorphism rounded-2xl shadow-lg border transition-all duration-300 ease-out ${
           isMobileMenuOpen
             ? "opacity-100 visible transform translate-y-0"
             : "opacity-0 invisible transform -translate-y-2"
@@ -152,7 +152,7 @@ const Navbar = () => {
               href={item.href}
               className={`block px-6 py-3 text-sm font-medium transition-all duration-200 relative cursor-pointer ${
                 activeRoute === item.id
-                  ? "text-black bg-gray-50 border-l-4 border-black"
+                  ? "text-light bg-gray-50 border-l-4 border-accent"
                   : "text-gray-600 hover:text-black hover:bg-gray-50"
               }`}
               onClick={(e) => handleNavClick(e, item)}
@@ -163,7 +163,7 @@ const Navbar = () => {
 
           <div className="px-6 py-3 border-t border-gray-100 mt-2">
           {userName ? (
-            <div onClick={() => navigate(isAdmin ? "/admin" : "/users")} className="border border-primary flex text-primary items-center gap-x-2 px-4 py-2 rounded-full">
+            <div onClick={() => navigate(isAdmin ? "/admin" : "/users")} className="border bg-light border-light flex text-primary items-center gap-x-2 px-4 py-2 rounded-full">
               <CircleUserRound />
               <span className="text-sm font-medium" onClick={() => navigate("/profile")}>
                 {getFirstName(userName)}
@@ -171,7 +171,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="px-6 py-3 border-t border-gray-100 mt-2">
-              <button onClick={() => navigate("/auth")} className="w-full text-sm font-medium text-gray-900 hover:text-black transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
+              <button onClick={() => navigate("/auth")} className="w-full text-sm font-medium text-gray-900 hover:text-light transition-colors duration-200 py-2 border border-gray-300 rounded-full hover:border-black">
                 Login
               </button>
             </div>

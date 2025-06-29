@@ -25,17 +25,17 @@ const UserDashboard = () => {
           title="Balance"
           value="$5,552.00"
           subtitle="+8% this month"
-          color="bg-purple-600"
+          color="glassmorphism"
         />
         <StatCard
           title="Est. Balance USDT"
           value="$682.50"
           subtitle="+12% last week"
-          color="bg-green-600"
+          color="bg-light text-dark"
         />
         <StatCard
-          title="Est. Balance IDR"
-          value={user.subscription.totalPrice}
+          title="Est. Balance for Subscription"
+          value={`Rp ${Number(user.subscription.totalPrice).toLocaleString("id-ID")}`}
           subtitle="Active Subscription"
           color="bg-indigo-600"
         />
