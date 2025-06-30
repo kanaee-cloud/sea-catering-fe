@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MoreVertical } from "lucide-react";
+import StatusIndicator from "../../common/StatusIndicator";
 
 const SkeletonRow = () => (
   <tr className="animate-pulse">
@@ -19,30 +20,6 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume, isLoading }) =>
     setOpenMenuId((prev) => (prev === id ? null : id));
   };
 
-  const getStatusConfig = (status) => {
-    const configs = {
-      ACTIVE: {
-        color: "text-green-600",
-        bgColor: "bg-green-100 dark:bg-green-900/30",
-        icon: "🟢",
-      },
-      PAUSED: {
-        color: "text-yellow-600",
-        bgColor: "bg-yellow-100 dark:bg-yellow-900/30",
-        icon: "🟡",
-      },
-      CANCELLED: {
-        color: "text-red-500",
-        bgColor: "bg-red-100 dark:bg-red-900/30",
-        icon: "🔴",
-      },
-    };
-    return configs[status] || {
-      color: "text-gray-500",
-      bgColor: "bg-gray-100 dark:bg-gray-900/30",
-      icon: "⚪",
-    };
-  };
 
   const handleAction = async (action, subscriptionId) => {
     try {
@@ -71,7 +48,7 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume, isLoading }) =>
             <th className="px-4 py-3 text-left font-semibold">Email</th>
             <th className="px-4 py-3 text-left font-semibold">Plan</th>
             <th className="px-4 py-3 text-left font-semibold">Status</th>
-            <th className="px-4 py-3 text-left font-semibold">Created At</th>
+            <th className="px-4 py-3 text-left font-semibold">Phone Number</th>
             <th className="px-4 py-3 text-left font-semibold">Actions</th>
           </tr>
         </thead>
@@ -88,7 +65,6 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume, isLoading }) =>
                 users.map((user) => {
                   const { id, username, email, subscription } = user;
                   const isOpen = openMenuId === subscription.id;
-                  const statusConfig = getStatusConfig(subscription.status);
                   const isLoadingThis = loadingActionId === subscription.id;
 
                   return (
@@ -101,13 +77,10 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume, isLoading }) =>
                         </span>
                       </td>
                       <td className="px-4 py-3">
-                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${statusConfig.bgColor} ${statusConfig.color}`}>
-                          <span>{statusConfig.icon}</span>
-                          <span>{subscription.status}</span>
-                        </div>
+                        <StatusIndicator status={subscription.status} />
                       </td>
                       <td className="px-4 py-3">
-                        {new Date(subscription.createdAt).toLocaleDateString("id-ID")}
+                       {subscription.phoneNumber}
                       </td>
                       <td className="px-4 py-3 relative">
                         <div className="relative inline-block text-left">

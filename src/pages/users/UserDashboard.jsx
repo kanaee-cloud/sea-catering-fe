@@ -1,6 +1,5 @@
 import IdentityCard from "../../components/ui/users/IdentityCard";
 import StatCard from "../../components/ui/users/StatCard";
-import UserSubscriptionCard from "../../components/ui/users/UserSubscriptionCard";
 import { useUserAuth } from "../../hooks/useUserAuth";
 
 
@@ -42,11 +41,7 @@ const UserDashboard = () => {
       </div>
       )}
 
-      {user.subscription && (
-        <div className="mt-6">
-          <UserSubscriptionCard subscription={user.subscription} />
-        </div>
-      )}
+      
     </section>
   );
 };

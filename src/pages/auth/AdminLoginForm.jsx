@@ -53,7 +53,7 @@ export default function AdminLoginForm() {
       
       if (result.success) {
         navigate('/success')
-        navigate('/admin/dashboard', { replace: true });
+        navigate('/admin', { replace: true });
       } else {
         setError(result.message);
         toast.error("Please Logout First");

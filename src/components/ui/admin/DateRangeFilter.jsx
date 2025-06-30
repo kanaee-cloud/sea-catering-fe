@@ -1,5 +1,5 @@
 import { Filter } from "lucide-react";
-import React from "react";
+
 
 const DateRangeFilter = ({ startDate, endDate, onChange, onSubmit }) => {
   return (
@@ -8,7 +8,7 @@ const DateRangeFilter = ({ startDate, endDate, onChange, onSubmit }) => {
         e.preventDefault();
         onSubmit();
       }}
-      className="flex items-center sm:flex-row items-start sm:items-end gap-4"
+      className="flex items-center sm:flex-row  sm:items-end gap-4"
     >
       <div className="flex flex-col">
         <label htmlFor="startDate" className="text-sm font-medium mb-1">
