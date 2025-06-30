@@ -1,32 +1,33 @@
-import React, { useMemo, useState } from 'react'
-import SubscriptionTable from '../../components/ui/admin/SubscriptionTable'
-import { useAdminAuth } from '../../hooks/useAdminAuth';
+import React, { useMemo, useState } from "react";
+import SubscriptionTable from "../../components/ui/admin/SubscriptionTable";
+import { useAdminAuth } from "../../hooks/useAdminAuth";
 // import { useAdminAuth } from '../../hooks/useAdminAuth';
 // import AllUserTable from '../../components/ui/admin/AllUserTable';
 
 const SubscriptionUser = () => {
-
   const {
-      userListData,
-      handlePauseSubscription,
-      handleCancelSubscription,
-      handleResumeSubscription,
-    } = useAdminAuth();
-    const [search, setSearch] = useState("");
-  
-    const filteredUsers = useMemo(() => {
-      return userListData
-        ?.filter(
-          (user) => user.subscription 
-        )
-        ?.filter((user) => {
-          const q = search.toLowerCase();
-          return (
-            user.username.toLowerCase().includes(q) ||
-            user.email.toLowerCase().includes(q)
-          );
-        });
-    }, [userListData, search]);
+    userListData,
+    handlePauseSubscription,
+    handleCancelSubscription,
+    handleResumeSubscription,
+    loading,
+    admin,
+  } = useAdminAuth();
+  const [search, setSearch] = useState("");
+
+  const filteredUsers = useMemo(() => {
+    return userListData
+      ?.filter((user) => user.subscription)
+      ?.filter((user) => {
+        const q = search.toLowerCase();
+        return (
+          user.username.toLowerCase().includes(q) ||
+          user.email.toLowerCase().includes(q)
+        );
+      });
+  }, [userListData, search]);
+
+  const isUserListLoading = loading.userList || !userListData || !admin;
 
   return (
     <section>
@@ -45,17 +46,15 @@ const SubscriptionUser = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      {userListData && (
-        <SubscriptionTable
-          users={filteredUsers}
-          onPause={handlePauseSubscription}
-          onCancel={handleCancelSubscription}
-          onResume={handleResumeSubscription}
-        />
-      )}
-    
+      <SubscriptionTable
+        users={filteredUsers || []}
+        onPause={handlePauseSubscription}
+        onCancel={handleCancelSubscription}
+        onResume={handleResumeSubscription}
+        isLoading={isUserListLoading}
+      />
     </section>
-  )
-}
+  );
+};
 
-export default SubscriptionUser
+export default SubscriptionUser;

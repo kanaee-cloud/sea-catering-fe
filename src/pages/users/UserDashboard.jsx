@@ -9,8 +9,8 @@ const UserDashboard = () => {
 
   return (
     <section>
-      <div className="lg:flex justify-between items-center gap-4">
-        <div>
+      <div className="lg:flex justify-between items-center gap-4 mb-6">
+        <div className="">
           <h1 className="text-2xl font-bold mb-4">
             Welcome back, {user.username}!
           </h1>
@@ -19,25 +19,25 @@ const UserDashboard = () => {
         <IdentityCard user={user} />
       </div>
 
+      <StatCard
+        title="Subscription Status"
+        value={user.subscription?.status || "No Subscription Yet"}
+        subtitle={user.subscription?.status === "ACTIVE" ? "Active" : "Inactive"}
+        color="glassmorphism"
+      />
     {user.subscription && (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 mb-4">
-        <StatCard
-          title="Balance"
-          value="$5,552.00"
-          subtitle="+8% this month"
-          color="glassmorphism"
-        />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 mb-4">
         <StatCard
           title="Est. Balance USDT"
           value="$682.50"
           subtitle="+12% last week"
-          color="bg-light text-dark"
+          color="bg-gradient-to-tr from-blue-500 to-accent text-white"
         />
         <StatCard
           title="Est. Balance for Subscription"
           value={`Rp ${Number(user.subscription.totalPrice).toLocaleString("id-ID")}`}
           subtitle="Active Subscription"
-          color="bg-indigo-600"
+          color="bg-gradient-to-tr from-primary to-blue-500 text-white"
         />
       </div>
       )}

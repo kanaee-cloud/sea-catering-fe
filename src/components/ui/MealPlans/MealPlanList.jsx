@@ -3,7 +3,7 @@ import { useMealPlans } from "../../../hooks/useMealPlans";
 import MealPlanCard from "../../common/MealPlanCard";
 
 const MealPlanList = () => {
-  const { mealPlans } = useMealPlans();
+  const { mealPlans, loading } = useMealPlans();
 
   return (
     <section className="min-h-screen">
@@ -18,9 +18,13 @@ const MealPlanList = () => {
       </p>
       <div className="mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
-          {mealPlans.map((plan) => (
-            <MealPlanCard key={plan.id} plan={plan} />
-          ))}
+          {loading
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <MealPlanCard key={i} isLoading />
+              ))
+            : mealPlans.map((plan) => (
+                <MealPlanCard key={plan.id} plan={plan} />
+              ))}
         </div>
       </div>
     </section>

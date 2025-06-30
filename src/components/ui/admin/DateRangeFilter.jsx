@@ -8,7 +8,7 @@ const DateRangeFilter = ({ startDate, endDate, onChange, onSubmit }) => {
         e.preventDefault();
         onSubmit();
       }}
-      className="flex flex-col sm:flex-row items-start sm:items-end gap-4"
+      className="flex items-center sm:flex-row items-start sm:items-end gap-4"
     >
       <div className="flex flex-col">
         <label htmlFor="startDate" className="text-sm font-medium mb-1">
@@ -38,7 +38,7 @@ const DateRangeFilter = ({ startDate, endDate, onChange, onSubmit }) => {
 
       <button
         type="submit"
-        className=" text-white rounded-lg px-4 py-2 text-sm hover:bg-gray-800 transition"
+        className=" text-white bg-accent mt-6 rounded-lg px-4 py-2 text-sm hover:bg-gray-800 transition"
       >
         <Filter />
       </button>

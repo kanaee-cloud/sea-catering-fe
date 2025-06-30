@@ -3,6 +3,7 @@ import { Eye, EyeOff, Shield, Mail, Lock, AlertCircle } from 'lucide-react';
 import { useAdminAuth } from '../../hooks/useAdminAuth';
 import SuccessPage from '../../components/common/SuccessPage';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 
@@ -55,6 +56,7 @@ export default function AdminLoginForm() {
         navigate('/admin/dashboard', { replace: true });
       } else {
         setError(result.message);
+        toast.error("Please Logout First");
         if (result.details && Array.isArray(result.details)) {
           const errors = {};
           result.details.forEach(detail => {

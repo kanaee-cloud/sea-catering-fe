@@ -4,7 +4,7 @@ import { useAdminAuth } from '../../hooks/useAdminAuth';
 
 const ActiveUser = () => {
 
-    const { userListData } = useAdminAuth();
+    const { userListData, loading } = useAdminAuth();
 
   return (
     <section>
@@ -12,7 +12,7 @@ const ActiveUser = () => {
             <h1 className="text-2xl font-bold">All Active Users</h1>
             <p className="text-sm opacity-70 mt-2">Real-time active users</p>
         </div>
-          <AllUserTable users={userListData} />
+          <AllUserTable users={userListData} isLoading={loading.userList} />
     </section>
   )
 }

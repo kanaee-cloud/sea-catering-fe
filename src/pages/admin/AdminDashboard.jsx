@@ -7,7 +7,7 @@ import { useState } from "react";
 import AdminCard from "../../components/ui/admin/AdminCard";
 
 const AdminDashboard = () => {
-  const { fetchAdminDashboard, dashboard, getDefaultDateRange, admin } = useAdminAuth();
+  const { fetchAdminDashboard, dashboard, getDefaultDateRange, admin, loading } = useAdminAuth();
   const defaultRange = getDefaultDateRange();
   const [filters, setFilters] = useState({
     startDate: defaultRange.startDate,
@@ -56,19 +56,19 @@ const AdminDashboard = () => {
           value={dashboard?.newSubscriptions || 0}
           description="Since selected range"
           gradient
-         
+         isLoading={loading.dashboard}
         />
         <AnalyticsCard
           title="MRR (Monthly Revenue)"
           value={`Rp ${dashboard?.MRR?.toLocaleString("id-ID") || 0}`}
           description="Estimated gross revenue"
-         
+         isLoading={loading.dashboard}
         />
         <AnalyticsCard
           title="Reactivations"
           value={dashboard?.reactivations || 0}
           description="Returning customers"
-    
+          isLoading={loading.dashboard}
         />
       </div>
     
