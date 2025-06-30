@@ -11,4 +11,8 @@ export const createTestimonial = async (data) => {
   return response.data.data;
 }
 
+export const deleteTestimonial = async (id) => {
+  const response = await axiosInstance.delete(`/admin/${API_ENDPOINTS.TESTIMONIALS}/${id}`);
+  return response.data.data;
+}
 

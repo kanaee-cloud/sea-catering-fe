@@ -167,7 +167,6 @@ const SubscriptionTable = ({ users, onPause, onCancel, onResume, isLoading }) =>
                                     <span className="w-4 h-4 border-2 border-green-400 border-t-transparent rounded-full animate-spin" />
                                   ) : (
                                     <>
-                                      <span>{subscription.status === "PAUSED" ? "▶️" : "🔄"}</span>
                                       <span>{subscription.status === "PAUSED" ? "Resume" : "Reactivate"}</span>
                                     </>
                                   )}

@@ -23,6 +23,7 @@ import UserSubscription from "../pages/users/UserSubscription";
 import UserSettings from "../pages/users/UserSettings";
 import UserLayout from "../layouts/UserLayout";
 import SuccessPage from "../components/common/SuccessPage";
+import Testimonial from "../pages/admin/Testimonial";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "user-list",
         element: <ActiveUser />,
+      },
+      {
+        path: "testimonials",
+        element: <Testimonial />,
       },
       {
         path: "settings",

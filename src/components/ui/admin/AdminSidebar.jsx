@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Hexagon, LayoutDashboard, Package, Menu, X, Users, Settings } from "lucide-react";
+import { Hexagon, LayoutDashboard, Package, Menu, X, Users, Settings, FormInput } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,6 +11,7 @@ const AdminSidebar = () => {
     { id: "dashboard", label: "Dashboard", href: "/admin", icon: LayoutDashboard  },
     { id: "subscription", label: "Subscription", href: "/admin/subscription", icon: Package  },
     { id: "user-list", label: "User List", href: "/admin/user-list", icon: Users   },
+    { id: "testimonials", label: "Testimonials", href: "/admin/testimonials", icon: FormInput   },
     { id: "settings", label: "Settings", href: "/admin/settings", icon: Settings   },
   ];
 

@@ -9,6 +9,10 @@ import ReviewForm from "./ReviewForm";
 const Review = () => {
   const { testimonials, loading, error } = useTestimonials();
 
+  const filteredTestimonials = testimonials.filter(
+    (testimonial) => testimonial.rating >= 4
+  );
+
   return (
     <div className="w-full h-[60vh] py-10">
       <div className=" font-bold text-center mb-8">
@@ -35,7 +39,7 @@ const Review = () => {
           modules={[Autoplay]}
           className="w-full"
         >
-          {testimonials.map((testimonial) => (
+          {filteredTestimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id} style={{ width: "300px" }}>
               <ReviewCard testimonial={testimonial} />
             </SwiperSlide>
@@ -48,3 +52,4 @@ const Review = () => {
 };
 
 export default Review;
+
