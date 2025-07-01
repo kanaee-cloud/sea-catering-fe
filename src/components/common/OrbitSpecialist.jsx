@@ -5,7 +5,7 @@ import { ChefHat, Salad, UtensilsCrossed, Apple, Leaf } from "lucide-react";
 const specialists = [
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1556911220-e15b29be8c3f?w=80&h=80&fit=crop",
+    src: "/images/diet.png",
     style: "top-0 left-1/2 -translate-x-1/2",
   },
   {
@@ -15,7 +15,7 @@ const specialists = [
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1613145993481-59bc2597e263?w=80&h=80&fit=crop",
+    src: "/images/royale.png",
     style: "top-[35%] left-[90%]",
   },
   {

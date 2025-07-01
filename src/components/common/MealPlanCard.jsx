@@ -29,7 +29,7 @@ const MealPlanCard = ({ plan, isLoading }) => {
       <div className="w-full max-w-xs glassmorphism rounded-3xl shadow-md overflow-hidden flex flex-col transform transition-transform duration-300 hover:scale-105">
         <div className="p-4 flex flex-col flex-grow space-y-4">
           <img
-            src="https://i.pinimg.com/736x/34/d9/cb/34d9cb52666f373e3533a4359c659d4e.jpg"
+            src={plan.imageUrl}
             alt={plan.name}
             className="w-full h-44 object-cover rounded-xl"
           />
@@ -58,9 +58,9 @@ const MealPlanCard = ({ plan, isLoading }) => {
         isOpen={open}
         onClose={() => setOpen(false)}
         title={plan.name}
+        image={plan.imageUrl}
         price={`Rp ${Number(plan.price).toLocaleString()}`}
         description={plan.description || "Tidak ada deskripsi tersedia"}
-        image="https://i.pinimg.com/736x/34/d9/cb/34d9cb52666f373e3533a4359c659d4e.jpg"
       />
     </>
   );

@@ -1,16 +1,14 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-
 import { useTestimonials } from "../../../hooks/useTestimonials";
 import ReviewCard from "../../common/ReviewCard";
-import ReviewForm from "./ReviewForm";
 
 const Review = () => {
   const { testimonials, loading, error } = useTestimonials();
 
   const filteredTestimonials = testimonials.filter(
-    (testimonial) => testimonial.rating >= 4
+    (testimonial) => testimonial.rating >= 3
   );
 
   return (
